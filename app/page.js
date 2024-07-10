@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -50,32 +51,36 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1>Unduh File</h1>
-      <p>Masukkan URL file:</p>
-      <input
-        type="text"
-        id="url"
-        value={url}
-        onChange={(event) => setUrl(event.target.value)}
-      />
-      <button onClick={downloadFile}>Unduh File</button>
+    <div className="container d-flex align-items-center justify-content-center min-vh-100">
+      <div className="text-center">
+        <h1>Unduh File</h1>
+        <p>Masukkan URL file:</p>
+        <input
+          type="text"
+          className="form-control mb-3"
+          id="url"
+          value={url}
+          onChange={(event) => setUrl(event.target.value)}
+        />
+        <button className="btn btn-primary mb-3" onClick={downloadFile}>
+          Start Download
+        </button>
 
-      {progress > 0 && (
-        <div>
-          <p>Progres: {progress}%</p>
-        </div>
-      )}
+        {progress > 0 && (
+          <div>
+            <p>Progres: {progress}%</p>
+          </div>
+        )}
 
-      {file && (
-        <div>
-          <a href={file} download={getFileNameFromUrl(url)}>
-            Unduh File
-          </a>
-          <p>Ukuran File: {fileSize} bytes</p>
-          <p>MD5 Hash: {md5Hash}</p>
-        </div>
-      )}
+        {file && (
+          <div>
+            <a href={file} download={getFileNameFromUrl(url)} className="btn btn-success mb-3">
+              Save File
+            </a>
+            <p>Ukuran File: {fileSize} bytes</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
